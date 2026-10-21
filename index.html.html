@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<!-- 宣告使用 HTML5；DOCTYPE 是文件類型宣告，不需要結束標籤。 -->
+<html lang="zh-Hant">
+<!-- html 包住整份文件；lang="zh-Hant" 表示主要使用繁體中文。 -->
+<head>
+    <!-- head 放網頁資訊；這些資訊不會直接成為頁面中的報導文字。 -->
+    <meta charset="UTF-8">
+    <!-- UTF-8 可正確處理中文；meta 是空元素，不寫結束標籤。 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- viewport 讓行動裝置使用裝置寬度；不代表固定寬度的圖片會自動縮小。 -->
+    <meta name="description" content="走進臺中驛鐵道文化園區，認識百年古蹟車站、鐵道記憶與商圈活力，透過景點清單、有框表格、照片、影片與 Google 地圖閱讀城市故事。">
+    <!-- description 提供網頁摘要；author 標示作者。 -->
+    <meta name="author" content="HTML 課程示範作者">
+    <!-- robots 表達索引意圖；本機檔案不會因此自動被搜尋引擎收錄。 -->
+    <meta name="robots" content="index, follow">
+    <!-- Open Graph 提供分享摘要，不是搜尋排名保證。 -->
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_TW">
+    <meta property="og:title" content="台中驛鐵道報導｜百年的鐵道記憶">
+    <meta property="og:description" content="認識台中驛鐵道文化園區的百年歷史與鐵道空間，搭配景點表格、照片、影片及位置地圖。">
+    <meta property="og:image" content="https://www.taiwan.net.tw/att/1/big_scenic_spots/pic_A12-00079_10.jpg">
+    <meta property="og:image:alt" content="台中驛鐵道文化園區舊車站與鐵道景觀">
+    <meta property="article:published_time" content="2026-10-14">
+    <meta property="article:modified_time" content="2026-10-21">
+    <!-- 正式上線後，再以真實公開網址加入 canonical 及 og:url；不要使用本機或虛構網址。 -->
+    <title>台中驛鐵道報導｜HW06 CSS 樣式練習（粉紅主題）</title>
+    <!-- title 顯示在瀏覽器分頁；與 body 中的 h1 用途不同。 -->
+    <!--
+        方法二：style 元素放在 head，集中設定整頁共用樣式。
+        CSS 規則的結構是「選擇器 { 屬性: 值; }」，CSS 註解使用 /* ... */。
+        元素選擇器如 body、h2；類別選擇器如 .video-frame；ID 選擇器如 #tips。
+        方法一的行內樣式，請在本文搜尋「方法一」查看三處示範。
+    -->
+    <style>
+        /* 1. 盒子尺寸與全頁文字：border-box 讓寬度包含內距與框線。 */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 32px 24px;
+            font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
+            font-size: 17px;
+            line-height: 1.85;
+            color: #4a3b40;
+            background-color: #faf3f5; /* 粉嫩柔和的背景色 */
+        }
+
+        /* 2. 頁首：背景、框線、圓角與內距共同建立報導的視覺層次。 */
+        header {
+            padding: 34px 36px;
+            background-color: #8c4a63; /* 優雅的玫瑰粉紅 */
+            color: #fffafc;
+            border-top: 6px solid #d4839e; /* 亮粉紅裝飾邊框 */
+            border-radius: 6px;
+        }
+
+        h1 {
+            margin: 0 0 16px;
+            font-size: 2rem;
+            line-height: 1.4;
+            letter-spacing: 0.04em;
+        }
+
+        header p {
+            margin: 10px 0;
+        }
+
+        small {
+            font-size: 0.85em;
+            font-style: normal;
+        }
+
+        /* 3. 導覽與連結：inline-block 讓連結可設定完整的點選內距。 */
+        nav {
+            margin: 24px 0;
+            padding: 20px 24px;
+            background-color: #f7e6ec; /* 淡粉色導覽背景 */
+            border: 1px solid #e0c2cd;
+            border-radius: 6px;
+        }
+
+        nav h2 {
+            margin-top: 0;
+            padding: 0;
+            border: 0;
+            font-size: 1.1rem;
+            color: #733c51;
+        }
+
+        nav ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        nav li {
+            display: inline-block;
+            margin: 4px 6px 4px 0;
+        }
+
+        nav a {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: #fffdfd;
+            border: 1px solid #e0c2cd;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+
+        a {
+            color: #9e4768; /* 粉紫紅連結色 */
+            text-underline-offset: 4px;
+            overflow-wrap: anywhere;
+        }
+
+        /* 虛擬類別 :hover 表示滑鼠移入；:focus-visible 提供鍵盤焦點提示。 */
+        a:hover {
+            color: #c95c84;
+            text-decoration: underline;
+        }
+
+        a:focus-visible, summary:focus-visible {
+            outline: 3px solid #d4839e;
+            outline-offset: 4px;
+        }
+
+        /* 4. 文章章節與盒子模型：margin 為外距，padding 為內距。 */
+        section, aside {
+            margin: 24px 0;
+            padding: 24px 28px;
+            background-color: #fffdfd;
+            border: 1px solid #ead0d8;
+            border-radius: 6px;
+        }
+
+        h2 {
+            margin: 0 0 18px;
+            padding-left: 12px;
+            border-left: 4px solid #b85d7f; /* 粉紅風格的標題左側邊框 */
+            font-size: 1.4rem;
+            line-height: 1.5;
+            color: #6b374b;
+        }
+
+        h3 {
+            margin: 22px 0 10px;
+            font-size: 1.1rem;
+            color: #82445b;
+        }
+
+        p {
+            margin: 12px 0;
+        }
+
+        ul, ol {
+            padding-left: 1.6em;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        hr {
+            margin: 26px 0;
+            border: 0;
+            border-top: 1px solid #ead0d8;
+        }
+
+        /* 5. 表格：以 CSS 框線取代 HW05 的 border="1"。 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95em;
+            overflow-wrap: anywhere;
+        }
+
+        caption {
+            margin-bottom: 12px;
+            text-align: left;
+            font-weight: bold;
+            color: #6b374b;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #e6cbd4;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        thead {
+            background-color: #f5dce4; /* 表頭柔和粉紅 */
+        }
+
+        tbody th {
+            background-color: #fcf1f4;
+        }
+
+        /* 6. 圖片與嵌入媒體：類別區分影片比例與地圖高度。 */
+        figure {
+            margin: 18px 0;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        figcaption {
+            margin-top: 10px;
+            color: #7d5966;
+            font-size: 0.85em;
+        }
+
+        iframe {
+            display: block;
+            max-width: 100%;
+            border: 0;
+            border-radius: 4px;
+        }
+
+        .video-frame {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+        }
+
+        .map-frame {
+            width: 100%;
+            height: 340px;
+        }
+
+        /* 7. ID 選擇器只設定這個補充區；aside 仍保留原有語意。 */
+        #tips {
+            background-color: #f7e6ed; /* 提醒區改用淡粉紅色底 */
+            border-left: 5px solid #c76f91;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: bold;
+            color: #6b374b;
+        }
+
+        footer {
+            margin-top: 32px;
+            padding: 20px 0;
+            border-top: 2px solid #b85d7f;
+            color: #7d5966;
+            text-align: center;
+        }
+
+        /* 8. 窄視窗只縮小留白與字級，所有 CSS 仍在同一個 style 元素。 */
+        @media (max-width: 600px) {
+            body {
+                padding: 16px 12px;
+                font-size: 16px;
+            }
+
+            header, nav, section, aside {
+                padding: 20px 16px;
+            }
+
+            h1 {
+                font-size: 1.65rem;
+            }
+
+            h2 {
+                font-size: 1.2rem;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!--
+        第六次作業：一頁式台中驛鐵道報導。
+        本範例延續 HW05 的 HTML 語意結構，加入 CSS 配色、文字與盒子模型。
+        方法一：在個別元素的 style 屬性內寫行內樣式；本頁共有三處示範。
+        方法二：在 head 的 style 元素內集中撰寫共用規則。
+        所有自寫 CSS 都在本 HTML；不載入外部 CSS，不使用 @import 或自寫 JavaScript。
+        YouTube 與 Google 地圖是外部服務，服務內部可能使用自己的 CSS 與 JavaScript。
+    -->
+
+    <!-- header 是頁首；id="top" 是下方「回到頁首」連結的目的地。 -->
+    <header id="top">
+        <!-- h1 是本頁主標題；h2 用於各章節，依內容階層選用標題。 -->
+        <h1>台中驛鐵道：百年的鐵道記憶</h1>
+        <p><small>城市走讀 · 歷史地標 · 公園漫遊</small></p>
+        <p><strong>從鐵道到新創的文創市集攤販，一起閱讀台中的城市記憶。</strong></p>
+        <!-- 方法一（1/3）：行內 style 只設定這個 mark 的背景、文字顏色與內距（改為粉嫩色系）。 -->
+        <p>本期焦點：<mark style="background-color: #fce1ec; color: #7a3851; padding: 2px 6px;">百年歷史與日式建築</mark>，從景點報導延伸到位置地圖。</p>
+        <!-- time 的 datetime 以標準日期格式提供機器可讀的日期。 -->
+        <p>作者：HTML 課程示範作者｜報導整理日期：<time datetime="2026-10-14">2026 年 10 月 14 日</time></p>
+        <!-- 方法一（3/3）：共用的 small 為正常字體，這一處另用行內樣式改為斜體。 -->
+        <p><small style="font-style: italic;">本文為資料整理型教學報導，非現場採訪紀錄。</small></p>
+    </header>
+
+    <!-- nav 表示導覽區；href="#名稱" 會跳到本頁相同 id 的元素。 -->
+    <nav aria-label="報導目錄">
+        <h2>報導目錄</h2>
+        <ul>
+            <li><a href="#intro">驛鐵道簡介</a></li>
+            <li><a href="#highlights">景點特色與散步順序</a></li>
+            <li><a href="#table">景點比較表</a></li>
+            <li><a href="#photo">驛鐵道照片</a></li>
+            <li><a href="#video">影音報導</a></li>
+            <li><a href="#map">位置地圖</a></li>
+            <li><a href="#tips">走讀小提醒</a></li>
+            <li><a href="#sources">資料來源</a></li>
+        </ul>
+    </nav>
+
+    <!-- hr 表示內容主題的分隔，也是沒有結束標籤的空元素。 -->
+    <hr>
+
+    <!-- main 包住本頁主要內容；article 表示可獨立閱讀的完整報導。 -->
+    <main id="main-content">
+        <!-- article 收納可獨立理解的報導；section 是這篇報導的主題章節。 -->
+        <article aria-label="台中驛鐵道專題報導">
+            <!-- section 將報導分成有標題的章節；同一頁中的 id 不可重複。 -->
+            <section id="intro">
+                <h2>一、驛鐵道簡介</h2>
+                <!-- p 表示段落；strong 強調重要資訊，不用來取代標題。 -->
+                <p>
+                    臺中驛鐵道文化園區是以臺灣臺中市國定古蹟-臺中車站為軸心形成的鐵路園區，包含國定古蹟臺中車站、臺中新站與高架橋的商業空間、舊臺中後火車站、二十號倉庫建築群、復興路寄宿舍、原台鐵局貨運服務總所臺中服務所與台鐵局電務處彰化號誌段台中分駐所。
+                </p>
+                <p>
+                    隨著商圈轉移，臺中火車站周邊逐漸沒落，然而，日漸完善的交通路網、近年來臺鐵局及臺中市政府推動的多項大型建設，為中區注入新活力，以這座百年車站為軸心的車站商圈，展現蓬勃朝氣，金字招牌再度被擦亮。
+                </p>
+                <p>
+                    臺中驛鐵道文化園區很適合排在抵達台中的第一段行程，原因很簡單：它就在臺中車站旁邊。如果本來就是搭台鐵來台中，下車後不用立刻再轉公車或計程車，就能先看看舊站與鐵道空間。逛完臺中驛去哪裡？宮原眼科和綠川最容易接在後面。
+                </p>
+                <p>公園地址：台中市中區台灣大道一段 1 號。<br>閱讀重點：歷史文化、交通位置與特色。</p>
+            </section>
+
+            <hr>
+            <section id="highlights">
+                <h2>二、景點特色與散步順序</h2>
+                <h3>值得留意的三個特色</h3>
+                <!-- ul 是無序清單；li 是個別項目，適合不分先後的資訊。 -->
+                <ul>
+                    <li><strong>歷史建築：</strong>只要喜歡老建築、城市攝影或舊城散步，這裡也很好理解，不需要具備鐵路知識才逛得懂。</li>
+                    <li><strong>湖畔風景：</strong>能先看舊臺中車站往宮原眼科、綠川或更深入的舊城走。</li>
+                    <li><strong>城市綠地：</strong>園區經常有展覽、市集、表演與期間活動，同一個地方不同日期可能會有不同樣子。</li>
+                </ul>
+
+                <h3>建議散步順序</h3>
+                <!-- 方法一（2/3）：這一段有獨立的左框線；其他 p 不受這個 style 屬性影響（改為粉紅色系）。 -->
+                <p style="border-left: 4px solid #d4839e; padding-left: 14px;">以下是本報導規劃的散步建議，並非官方指定路線。</p>
+                <!-- ol 是有序清單；瀏覽器會依 li 的排列產生編號。 -->
+                <ol>
+                    <li>第一站 臺中驛鐵道文化園區、舊臺中車站。</li>
+                    <li>第二站 宮原眼科、綠川周邊。</li>
+                    <li>第三站 往台中舊城街區散步。</li>
+                    <li>第四站 依時間選第二市場、中央書局或其他舊城景點。</li>
+                </ol>
+            </section>
+
+            <hr>
+            <section id="table">
+                <h2>三、景點比較表</h2>
+                <!--
+                    table 用於呈現資料，不用來排版整個網頁。
+                    HW06 移除舊式 border 屬性，改由 style 元素內的 table、th、td 規則設定框線。
+                    border-collapse 合併相鄰框線；padding 增加儲存格內距。
+                    表格仍保留 caption、thead、tbody、scope 等語意結構。
+                -->
+                <table>
+                    <!-- caption 是表格標題，放在 table 內最前面。 -->
+                    <caption>台中驛鐵道園區景點的特色與觀察重點</caption>
+                    <!-- thead 包住表頭；tr 是一橫列；th 是標題儲存格。 -->
+                    <thead>
+                        <tr>
+                            <!-- scope="col" 表示這個 th 是整欄的標題。 -->
+                            <th scope="col">景點名稱</th>
+                            <th scope="col">主要特色</th>
+                            <th scope="col">建議觀察重點</th>
+                        </tr>
+                    </thead>
+                    <!-- tbody 包住資料列；td 是一般資料儲存格。 -->
+                    <tbody>
+                        <tr>
+                            <!-- scope="row" 表示這個 th 是本列的標題。 -->
+                            <th scope="row">舊火車</th>
+                            <td>建於 1905 年的古蹟鐵道及與鐵路通車的歷史關係</td>
+                            <td>舊鐵軌歷史</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">日式建築</th>
+                            <td>及古蹟景觀舊火車站與日治時期相關的歷史遺跡</td>
+                            <td>建築外觀及現場歷史解說</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">月台空間</th>
+                            <td>鐵道高架化後保留的月台與舊軌道場域</td>
+                            <td>新舊交織的月台動線與景觀</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <hr>
+            <section id="photo">
+                <h2>四、舊火車照片</h2>
+                <!-- figure 將圖片與圖說組成一個單位；figcaption 是圖說。 -->
+                <figure>
+                    <!--
+                        img 是空元素，不寫 /img 結束標籤。
+                        src 指定圖片網址；本範例使用外部圖片，需要連線才能載入。
+                        alt 描述照片內容，圖片未載入時或使用螢幕閱讀器時仍可理解。
+                        width 提供圖片尺寸資訊；CSS 的 max-width: 100% 與 height: auto 讓圖片在窄視窗縮小且保持比例。
+                    -->
+                    <img
+                        src="https://www.taiwan.net.tw/att/1/big_scenic_spots/pic_A12-00079_10.jpg"
+                        alt="台中驛鐵道文化園區舊火車與車站景觀"
+                        width="480">
+                    <figcaption>
+                        舊車站是台中驛鐵道的重要地標。
+                        圖片來源：<a href="https://www.taiwan.net.tw/">交通部觀光署「臺中驛鐵道」景點頁</a>。
+                    </figcaption>
+                </figure>
+            </section>
+
+            <hr>
+            <section id="video">
+                <h2>五、影音報導</h2>
+                <p>透過下方影片認識台中驛鐵道與園區歷史，再比較影片畫面與本文介紹的景點。</p>
+                <!--
+                    iframe 嵌入 KKday Taiwan 的台中公園/驛鐵道介紹影片。
+                -->
+                <figure>
+                    <iframe
+                        class="video-frame"
+                        width="560"
+                        height="315"
+                        src="https://www.youtube.com/embed/zywCUOaybyc"
+                        title="KKday Taiwan：台中驛鐵道介紹影片"
+                        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen>
+                    </iframe>
+                    <figcaption>影片：台中驛鐵道，台中必訪知名地標｜發布者：KKday Taiwan。</figcaption>
+                </figure>
+                <p><a href="https://www.youtube.com/watch?v=zywCUOaybyc" target="_blank" rel="noopener noreferrer">在 YouTube 觀看 KKday 的介紹（另開分頁）</a></p>
+                <p><small>影片為外部作者發布的景點介紹，現場狀況請以最新官方資訊為準。</small></p>
+                <p><small>本機預覽請使用同資料夾的 <code>HW06_開啟預覽.command</code> 或 Live Server；若直接開啟 HTML 出現錯誤 153，請改用 HTTP 預覽或上方 YouTube 連結。</small></p>
+            </section>
+
+            <!-- 位置地圖是報導的主要資訊，因此用 section；iframe 嵌入外部地圖。 -->
+            <section id="map">
+                <h2>六、位置地圖：找到台中驛鐵道</h2>
+                <p>臺中驛鐵道文化園區位於台中市中區，地址為<strong>台灣大道一段 1 號</strong>。
+                    下方地圖標示本文介紹的驛鐵道位置，方便讀者對照景點與周邊街道。</p>
+                <!--
+                    Google 地圖以座標定位，q 指定緯度與經度，output=embed 回傳嵌入版。
+                -->
+                <iframe
+                    class="map-frame"
+                    src="https://maps.google.com/maps?q=24.1368,120.6850&amp;z=16&amp;output=embed"
+                    width="480"
+                    height="360"
+                    title="台中驛鐵道位置 Google 地圖"
+                    loading="lazy"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen>
+                </iframe>
+                <p><a href="https://www.google.com/maps/search/?api=1&amp;query=%E8%87%BA%E4%B8%AD%E9%A9%97%E9%90%B5%E9%81%93%E6%96%87%E5%8C%96%E5%9C%92%E5%8D%80" target="_blank" rel="noopener noreferrer">在 Google 地圖開啟台中驛鐵道（另開分頁）</a></p>
+                <p><small>位置查詢由 Google 地圖提供；抵達後請依現場導覽牌確認入口與步道。</small></p>
+            </section>
+
+            <hr>
+            <!--
+                aside 放與報導相關、但可獨立省略的補充資訊。
+            -->
+            <aside id="tips" aria-labelledby="tips-title">
+                <h2 id="tips-title">走讀小提醒</h2>
+                <!-- details 與 summary 提供瀏覽器原生收折功能，不需要自寫 JavaScript。 -->
+                <details open>
+                    <summary>出發前與走讀時，記得這三件事</summary>
+                    <ul>
+                        <li>攜帶飲用水，依天氣準備防曬或雨具。</li>
+                        <li>尊重古蹟並保持環境整潔。</li>
+                        <li>以文字或照片記錄觀察；若寫入報導，區分現場觀察與引用資料。</li>
+                    </ul>
+                </details>
+            </aside>
+
+            <hr>
+            <section id="sources">
+                <h2>七、資料來源</h2>
+                <p>本報導依下列資料整理，散步順序與觀察建議由示範作者規劃。</p>
+                <ul>
+                    <li><a href="https://www.taiwan.net.tw/" target="_blank" rel="noopener noreferrer">交通部觀光署：臺中驛鐵道（含圖片來源）</a></li>
+                    <li><a href="https://www.tchac.taichung.gov.tw/" target="_blank" rel="noopener noreferrer">臺中市文化資產處：驛鐵道文化園區</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=zywCUOaybyc" target="_blank" rel="noopener noreferrer">YouTube：KKday Taiwan 台中驛鐵道介紹影片</a></li>
+                </ul>
+                <p><small>資料整理日期：2026 年 10 月 14 日。</small></p>
+            </section>
+        </article>
+    </main>
+
+    <hr>
+    <!-- footer 是頁尾；來源與作者標示應依自己的作品修改。 -->
+    <footer>
+        <p><strong>第六次 HTML 與 CSS 作業範例｜台中驛鐵道報導</strong></p>
+        <p><small>作者：HTML 課程示範作者 · 更新日期：2026 年 10 月 14 日</small></p>
+        <p><small>CSS 教學參考：<a href="https://steam.oxxostudio.tw/category/css/info/how-to-use.html">STEAM：開始使用 CSS（方法一、方法二）</a>。</small></p>
+        <p><small>文字依來源整理；照片與影片權利屬原作者。本文為課堂示範。</small></p>
+        <p><a href="#top">回到頁首</a></p>
+    </footer>
+</body>
+</html>
